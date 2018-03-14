@@ -6,18 +6,27 @@ QUIT_TRIGGER = 'q'
 RECEIVED = 'received'
 
 
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(('', 58913))
-server_socket.listen(5) 
-conn, _ = server_socket.accept()
+def start_server():
+    while True:
+        data = conn.recv(64)
+        if data == QUIT_TRIGGER:
+            print('--- Closing connection ---')
+            conn.send(QUIT)
+            conn.close()
+            break
+        else:
+            print('DATA: {}'.format(data))
+            conn.send(RECEIVED)
 
-while True:
-    data = conn.recv(64)
-    if data == QUIT_TRIGGER:
-        print('--- Closing connection ---')
-        conn.send(QUIT)
-        conn.close()
-        break
-    else:
-        print('DATA: {}'.format(data))
-        conn.send(RECEIVED)
+
+
+if __name__ == '__main__':
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(('', 58913))
+    server_socket.listen(5) 
+    conn, _ = server_socket.accept()
+
+    start_server()
+
+    server_socket.close()
+
