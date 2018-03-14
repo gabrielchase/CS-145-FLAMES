@@ -5,7 +5,7 @@ import collections
 QUIT = 'quit'
 QUIT_TRIGGER = 'q'
 RECEIVED = 'received'
-HOST = 55554
+HOST = 55551
 
 
 def get_flames_count(data):
@@ -14,9 +14,9 @@ def get_flames_count(data):
     w2 = collections.Counter(split_data[1])
     
     unique_letters_list = list((w1 - w2).elements()) + list((w2 - w1).elements())
-    unique_letters = ''.join(unique_letters_list).strip()
+    unique_letters = ''.join(unique_letters_list).strip().replace(' ', '')
 
-    print('Unique Letters: ', unique_letters)
+    print('Unique Letters: {}'.format(unique_letters))
     return len(unique_letters)
 
 def start_server():
@@ -43,4 +43,3 @@ if __name__ == '__main__':
     start_server()
 
     server_socket.close()
-
