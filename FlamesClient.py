@@ -1,3 +1,4 @@
+from FlamesServer import HOST
 import socket
 
 QUIT = 'quit'
@@ -27,8 +28,8 @@ def start_client():
 
 if __name__ == '__main__':
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('192.168.1.6', 58913))
+    client_socket.connect(('192.168.1.6', HOST))
 
     start_client()
-    
+
     client_socket.close()
