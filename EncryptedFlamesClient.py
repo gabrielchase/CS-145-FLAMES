@@ -18,14 +18,15 @@ def start_client():
         encrypted_data = caesar_cipher_encrypt(data)
         client_socket.send(encrypted_data)
         server_response = client_socket.recv(64)
+        decrypted_server_response = caesar_cipher_decrypt(server_response, SHIFT_KEY).title()
         
-        while server_response not in ALLOWED_RESPONSES:
+        while decrypted_server_response not in ALLOWED_RESPONSES:
             continue
 
-        if server_response in FLAMES_VALUES:
-            print(server_response)
+        if decrypted_server_response in FLAMES_VALUES:
+            print(decrypted_server_response)
 
-        if server_response == QUIT:
+        if decrypted_server_response == QUIT:
             print('--- Server closed connection ---')
             client_socket.close()
             break

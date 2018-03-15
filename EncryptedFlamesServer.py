@@ -14,7 +14,7 @@ FLAMES_DICT = {
     'S': 'Sibling'
 }
 SHIFT_KEY = 7
-HOST = 23243
+HOST = 23223
 
 
 def caesar_cipher_encrypt(plain_text, shift_key=SHIFT_KEY):
@@ -76,8 +76,9 @@ def start_server():
             
             print('flames_count: {}'.format(flames_count))
             print('relationship: {}\n'.format(relationship))
-            
-            conn.send(relationship)
+
+            encrypted_relationship = caesar_cipher_encrypt(relationship.lower(), SHIFT_KEY)
+            conn.send(encrypted_relationship)
 
 
 if __name__ == '__main__':
