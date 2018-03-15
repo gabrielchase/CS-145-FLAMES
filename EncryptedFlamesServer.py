@@ -51,13 +51,14 @@ def get_relationship(flames_count, current_idx=0, current_flames=FLAMES):
 def start_server():
     while True:
         data = conn.recv(64)
-        if data == QUIT_TRIGGER:
+        decrypted_data = caesar_cipher_decrypt(data)
+
+        if decrypted_data == QUIT_TRIGGER:
             print('--- Closing connection ---')
             conn.send(QUIT)
             conn.close()
             break
         else:
-            decrypted_data = caesar_cipher_decrypt(data)
             flames_count = get_flames_count(decrypted_data)
             relationship = get_relationship(flames_count=flames_count)
             
