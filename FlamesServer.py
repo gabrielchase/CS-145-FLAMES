@@ -5,6 +5,15 @@ import collections
 QUIT = 'quit'
 QUIT_TRIGGER = 'q'
 RECEIVED = 'received'
+FLAMES = 'FLAMES'
+FLAMES_DICT = {
+    'F': 'Friendship',
+    'L': 'Love',
+    'A': 'Affection',
+    'M': 'Marriage',
+    'E': 'Enemy',
+    'S': 'Sibling'
+}
 HOST = 55551
 
 
@@ -12,12 +21,20 @@ def get_flames_count(data):
     split_data = data.split(',')
     w1 = collections.Counter(split_data[0])
     w2 = collections.Counter(split_data[1])
-    
     unique_letters_list = list((w1 - w2).elements()) + list((w2 - w1).elements())
     unique_letters = ''.join(unique_letters_list).strip().replace(' ', '')
 
     print('Unique Letters: {}'.format(unique_letters))
     return len(unique_letters)
+
+def get_relationship(flames_count, current_idx=0, current_flames=FLAMES):
+    if len(current_flames) == 1:
+        return FLAMES_DICT.get(current_flames)
+    else:
+        current_idx = (current_idx + flames_count - 1) % len(current_flames)
+        current_flames = current_flames[:current_idx] + current_flames[current_idx + 1:]
+
+        return get_relationship(flames_count, current_idx, current_flames)
 
 def start_server():
     while True:
@@ -29,7 +46,11 @@ def start_server():
             break
         else:
             flames_count = get_flames_count(data)
-            print('flames_count: {}\n'.format(flames_count))
+            relationship = get_relationship(flames_count=flames_count)
+            
+            print('flames_count: {}'.format(flames_count))
+            print('relationship: {}\n'.format(relationship))
+            
             conn.send(RECEIVED)
 
 
