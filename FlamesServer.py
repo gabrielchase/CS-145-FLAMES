@@ -4,7 +4,6 @@ import collections
 
 QUIT = 'quit'
 QUIT_TRIGGER = 'q'
-RECEIVED = 'received'
 FLAMES = 'FLAMES'
 FLAMES_DICT = {
     'F': 'Friendship',
@@ -14,7 +13,7 @@ FLAMES_DICT = {
     'E': 'Enemy',
     'S': 'Sibling'
 }
-HOST = 55551
+HOST = 55553
 
 
 def get_flames_count(data):
@@ -51,8 +50,7 @@ def start_server():
             print('flames_count: {}'.format(flames_count))
             print('relationship: {}\n'.format(relationship))
             
-            conn.send(RECEIVED)
-
+            conn.send(relationship)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,8 @@ import socket
 
 QUIT = 'quit'
 RECEIVED = 'received'
-
+FLAMES_VALUES = ['Friendship', 'Love', 'Affection', 'Marriage', 'Enemy', 'Sibling']
+ALLOWED_RESPONSES = FLAMES_VALUES + [QUIT]
 
 def start_client():
     while True:
@@ -13,11 +14,11 @@ def start_client():
         client_socket.send(data)
         server_response = client_socket.recv(64)
         
-        while server_response not in [RECEIVED, QUIT]:
+        while server_response not in ALLOWED_RESPONSES:
             continue
 
-        if server_response == RECEIVED:
-            print('--- Server received {} ---'.format(data))
+        if server_response in FLAMES_VALUES:
+            print(server_response)
 
         if server_response == QUIT:
             print('--- Server closed connection ---')
