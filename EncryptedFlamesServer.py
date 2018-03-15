@@ -14,8 +14,20 @@ FLAMES_DICT = {
     'S': 'Sibling'
 }
 SHIFT_KEY = 7
-HOST = 55555
+HOST = 23243
 
+
+def caesar_cipher_encrypt(plain_text, shift_key=SHIFT_KEY):
+    cipher_text = ''
+    
+    for ch in plain_text:
+        if ch.isalpha():
+            shifted_char = chr((ord(ch) - 97 + shift_key % 26) % 26 + 97)
+            cipher_text += shifted_char 
+        else:
+            cipher_text += ch
+    
+    return cipher_text
 
 def caesar_cipher_decrypt(cipher_text, shift_key=SHIFT_KEY):
     plain_text = ''
