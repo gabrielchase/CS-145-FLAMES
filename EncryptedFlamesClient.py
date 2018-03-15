@@ -1,4 +1,4 @@
-from FlamesServer import HOST
+from EncryptedFlamesServer import (HOST, SHIFT_KEY)
 import socket
 
 QUIT = 'quit'
@@ -6,7 +6,6 @@ RECEIVED = 'received'
 FLAMES_VALUES = ['Friendship', 'Love', 'Affection', 'Marriage', 'Enemy', 'Sibling']
 ALLOWED_RESPONSES = FLAMES_VALUES + [QUIT]
 LETTERS_IN_ALPHABET = 26
-SHIFT_KEY = 7
 
 
 def caesar_cipher_encrypt(plain_text, shift_key=SHIFT_KEY):
@@ -16,6 +15,8 @@ def caesar_cipher_encrypt(plain_text, shift_key=SHIFT_KEY):
         if ch.isalpha():
             shifted_char = chr((ord(ch) - 97 + shift_key % 26) % 26 + 97)
             cipher_text += shifted_char 
+        else:
+            cipher_text += ch
     
     return cipher_text
 
