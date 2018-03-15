@@ -5,14 +5,27 @@ QUIT = 'quit'
 RECEIVED = 'received'
 FLAMES_VALUES = ['Friendship', 'Love', 'Affection', 'Marriage', 'Enemy', 'Sibling']
 ALLOWED_RESPONSES = FLAMES_VALUES + [QUIT]
+LETTERS_IN_ALPHABET = 26
+SHIFT_KEY = 7
 
+
+def caesar_cipher_encrypt(plain_text, shift_key=SHIFT_KEY):
+    cipher_text = ''
+    
+    for ch in plain_text:
+        if ch.isalpha():
+            shifted_char = chr((ord(ch) - 97 + shift_key % 26) % 26 + 97)
+            cipher_text += shifted_char 
+    
+    return cipher_text
 
 def start_client():
     while True:
         data = raw_input('input ')
         assert isinstance(data, basestring)
 
-        client_socket.send(data)
+        encrypted_data = caesar_cipher_encrypt(data)
+        client_socket.send(encrypted_data)
         server_response = client_socket.recv(64)
         
         while server_response not in ALLOWED_RESPONSES:
