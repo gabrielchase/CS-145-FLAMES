@@ -13,7 +13,7 @@ FLAMES_DICT = {
     'E': 'Enemy',
     'S': 'Sibling'
 }
-HOST = 55553
+HOST = 55555
 
 
 def get_flames_count(data):

@@ -67,7 +67,7 @@ def start_server():
 
         if decrypted_data == QUIT_TRIGGER:
             print('--- Closing connection ---')
-            conn.send(QUIT)
+            conn.send(caesar_cipher_encrypt(QUIT, SHIFT_KEY))
             conn.close()
             break
         else:

@@ -3,7 +3,7 @@ from EncryptedFlamesServer import (
 )
 import socket
 
-QUIT = 'quit'
+QUIT = 'Quit'
 RECEIVED = 'received'
 FLAMES_VALUES = ['Friendship', 'Love', 'Affection', 'Marriage', 'Enemy', 'Sibling']
 ALLOWED_RESPONSES = FLAMES_VALUES + [QUIT]
@@ -36,7 +36,7 @@ def start_client():
 
 if __name__ == '__main__':
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('127.0.0.1', HOST))
+    client_socket.connect(('10.147.76.106', HOST))
 
     start_client()
 
