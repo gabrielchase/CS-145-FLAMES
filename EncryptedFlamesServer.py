@@ -14,7 +14,7 @@ FLAMES_DICT = {
     'S': 'Sibling'
 }
 SHIFT_KEY = 7
-HOST = 23223
+HOST = 23221
 
 
 def caesar_cipher_encrypt(plain_text, shift_key=SHIFT_KEY):
@@ -48,7 +48,7 @@ def get_flames_count(data):
     unique_letters_list = list((w1 - w2).elements()) + list((w2 - w1).elements())
     unique_letters = ''.join(unique_letters_list).strip().replace(' ', '')
 
-    print('Unique Letters: {}'.format(unique_letters))
+    # print('Unique Letters: {}'.format(unique_letters))
     return len(unique_letters)
 
 def get_relationship(flames_count, current_idx=0, current_flames=FLAMES):
@@ -74,8 +74,8 @@ def start_server():
             flames_count = get_flames_count(decrypted_data)
             relationship = get_relationship(flames_count=flames_count)
             
-            print('flames_count: {}'.format(flames_count))
-            print('relationship: {}\n'.format(relationship))
+            # print('flames_count: {}'.format(flames_count))
+            print(relationship)
 
             encrypted_relationship = caesar_cipher_encrypt(relationship.lower(), SHIFT_KEY)
             conn.send(encrypted_relationship)
